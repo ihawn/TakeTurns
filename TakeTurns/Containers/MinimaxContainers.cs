@@ -7,9 +7,9 @@ using TakeTurns.Interfaces;
 
 namespace TakeTurns.Containers
 {
-    public class MinimaxInput<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
+    public class MinimaxInput<GameSpace, AgentType, MoveType, EvalType> : GameState<GameSpace, AgentType, MoveType, EvalType>
     {
-        public MinimaxInput(GameSpace space, IList<AgentType> moves, AgentType agent)
+        public MinimaxInput(GameSpace space, IList<MoveType> moves, AgentType agent)
         {
             Space = space;
             Moves = moves;
@@ -19,7 +19,7 @@ namespace TakeTurns.Containers
         public MinimaxInput(GameSpace space) { Space = space; }
     }
 
-    public class MinimaxOutput<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
+    public class MinimaxOutput<GameSpace, AgentType, MoveType, EvalType> : GameState<GameSpace, AgentType, MoveType, EvalType>
     {
         public EvalType MinimaxEvaluation { get; set; }
 
@@ -29,7 +29,7 @@ namespace TakeTurns.Containers
         {
             MinimaxEvaluation = zero;
             Space = default(GameSpace);
-            Moves = new List<AgentType>();
+            Moves = new List<MoveType>();
             Agent = default(AgentType);
         }
 
@@ -37,11 +37,11 @@ namespace TakeTurns.Containers
         {
             MinimaxEvaluation = isMin ? minValue : maxValue;
             Space = space;
-            Moves = new List<AgentType>();
+            Moves = new List<MoveType>();
             Agent = default(AgentType);
         }
 
-        public MinimaxOutput(EvalType evaluation, GameSpace space, IList<AgentType> moves, AgentType agent)
+        public MinimaxOutput(EvalType evaluation, GameSpace space, IList<MoveType> moves, AgentType agent)
         {
             MinimaxEvaluation = evaluation;
             Space = space;

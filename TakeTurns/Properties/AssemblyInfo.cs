@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TakeTurns")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("An AI framework for turn-based, 2-player games")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Isaac Hawn")]
 [assembly: AssemblyProduct("TakeTurns")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
