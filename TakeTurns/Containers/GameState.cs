@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TakeTurns.Containers
 {
-    public abstract class GameState<GameSpace, AgentType>
+    public abstract class GameState<GameSpace, AgentType, EvalType>
     {
         public virtual GameSpace Space { get; set; }
-        public virtual IList<AgentType> Agents { get; set; }
-        public virtual AgentType CurrentAgent { get; set; }
+        public virtual IList<AgentType> Moves { get; set; }
+        public virtual AgentType Agent { get; set; }
     }
 }

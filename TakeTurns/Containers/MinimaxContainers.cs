@@ -3,54 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TakeTurns.Interfaces;
 
 namespace TakeTurns.Containers
 {
-    public class MinimaxInput : GameState<object, object>
+    public class MinimaxInput<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
     {
-        public MinimaxInput(object space, IList<object> moves, object agent)
+        public MinimaxInput(GameSpace space, IList<AgentType> moves, AgentType agent)
         {
             Space = space;
             Moves = moves;
             Agent = agent;
         }
 
-        public MinimaxInput(object space) { Space = space; }
+        public MinimaxInput(GameSpace space) { Space = space; }
     }
 
-    public class MinimaxOutput : GameState<object, object>
+    public abstract class MinimaxOutput<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>, IGameEvaluation<GameSpace, AgentType, EvalType>
     {
-        public int MinimaxEvaluation { get; set; }
-
-        public MinimaxOutput()
-        {
-            MinimaxEvaluation = 0;
-            Space = null;
-            Moves = new List<object>();
-            Agent = new object();
+        public EvalType MinimaxEvaluation 
+        { 
+            get 
+            { 
+                return GetGameEvaluation(Space); 
+            } 
+            set { } 
         }
 
-        public MinimaxOutput(bool isMin, object space)
+        public MinimaxOutput(EvalType zero)
         {
-            MinimaxEvaluation = isMin ? int.MaxValue : int.MinValue;
+            MinimaxEvaluation = zero;
+            Space = default(GameSpace);
+            Moves = new List<AgentType>();
+            Agent = default(AgentType);
+        }
+
+        public MinimaxOutput(bool isMin, EvalType minValue, EvalType maxValue, GameSpace space)
+        {
+            MinimaxEvaluation = isMin ? minValue : maxValue;
             Space = space;
-            Moves = new List<object>();
-            Agent = new object();
+            Moves = new List<AgentType>();
+            Agent = default(AgentType);
         }
 
-        public MinimaxOutput(int evaluation, object space, List<object> moves, object agent)
+        public MinimaxOutput(EvalType evaluation, GameSpace space, IList<AgentType> moves, AgentType agent)
         {
             MinimaxEvaluation = evaluation;
             Space = space;
             Moves = moves;
             Agent = agent;
         }
+
+        public abstract EvalType GetGameEvaluation(GameSpace space);
+        public abstract IList<AgentType> GetPositions(GameSpace space);
     }
 
-    public class BranchResult : GameState<object, object>
+    public abstract class BranchResult<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
     {
-        public IList<MinimaxInput> Branches { get; set; }
+        public IList<MinimaxInput<GameSpace, AgentType, EvalType>> Branches { get; set; }
 
-        public BranchResult(List<MinimaxInput> branches) { Branches = branches; }
+        public BranchResult(List<MinimaxInput<GameSpace, AgentType, EvalType>> branches) { Branches = branches; }
     }
 }
