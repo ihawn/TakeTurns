@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TakeTurns.Interfaces
 {
-    internal interface GameEvaluation
+    public interface IGameEvaluation<GameSpace, AgentType, EvalType>
     {
+        EvalType GetGameEvaluation(GameSpace space);
+        IList<AgentType> GetPositions(GameSpace space);
     }
 }

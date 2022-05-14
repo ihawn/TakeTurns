@@ -19,16 +19,11 @@ namespace TakeTurns.Containers
         public MinimaxInput(GameSpace space) { Space = space; }
     }
 
-    public abstract class MinimaxOutput<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>, IGameEvaluation<GameSpace, AgentType, EvalType>
+    public class MinimaxOutput<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
     {
-        public EvalType MinimaxEvaluation 
-        { 
-            get 
-            { 
-                return GetGameEvaluation(Space); 
-            } 
-            set { } 
-        }
+        public EvalType MinimaxEvaluation { get; set; }
+
+        public MinimaxOutput() { }
 
         public MinimaxOutput(EvalType zero)
         {
@@ -53,12 +48,9 @@ namespace TakeTurns.Containers
             Moves = moves;
             Agent = agent;
         }
-
-        public abstract EvalType GetGameEvaluation(GameSpace space);
-        public abstract IList<AgentType> GetPositions(GameSpace space);
     }
 
-    public abstract class BranchResult<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
+    public class BranchResult<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
     {
         public IList<MinimaxInput<GameSpace, AgentType, EvalType>> Branches { get; set; }
 
