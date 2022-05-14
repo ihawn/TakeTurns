@@ -1,0 +1,6 @@
+C:\Users\Isaac\Documents\GitHub\TakeTurns\TakeTurns\bin\Debug\TakeTurns.dll
+C:\Users\Isaac\Documents\GitHub\TakeTurns\TakeTurns\bin\Debug\TakeTurns.pdb
+C:\Users\Isaac\Documents\GitHub\TakeTurns\TakeTurns\obj\Debug\TakeTurns.csproj.AssemblyReference.cache
+C:\Users\Isaac\Documents\GitHub\TakeTurns\TakeTurns\obj\Debug\TakeTurns.csproj.CoreCompileInputs.cache
+C:\Users\Isaac\Documents\GitHub\TakeTurns\TakeTurns\obj\Debug\TakeTurns.dll
+C:\Users\Isaac\Documents\GitHub\TakeTurns\TakeTurns\obj\Debug\TakeTurns.pdb

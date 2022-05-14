@@ -5,29 +5,47 @@ using TakeTurns.Interfaces;
 
 namespace TakeTurns
 {
-    public abstract class TakeTurns<GameSpace, AgentType> : IGameEvaluation<GameSpace, AgentType, float, MinimaxInput<GameSpace, AgentType, float>>
+    public abstract class TakeTurns<GameSpace, AgentType, MoveType> : IGameEvaluation<GameSpace, AgentType, float, MinimaxInput<GameSpace, AgentType, MoveType, float>> where AgentType : new()
     {
         public abstract float GetGameEvaluation(GameSpace space);
-        public abstract IList<MinimaxInput<GameSpace, AgentType, float>> GetPositions(GameSpace space, bool isMaxPlayer);
+        public abstract IList<MinimaxInput<GameSpace, AgentType, MoveType, float>> GetPositions(GameSpace space, bool isMaxPlayer);
         public abstract int GetAgentCount(GameSpace space, bool isMaxPlayer);
 
+        public MinimaxOutput<GameSpace, AgentType, MoveType, float> GetBestMove(GameSpace Game, int depth, bool isMaximizingPlayer)
+        {
+            if (depth % 2 == 0) { throw new ArgumentException("Depth Must Be Odd"); }
+            MinimaxOutput<GameSpace, AgentType, MoveType, float> minEvaluation = new MinimaxOutput<GameSpace, AgentType, MoveType, float>(true, float.MinValue, float.MaxValue, Game);
+            MinimaxOutput<GameSpace, AgentType, MoveType, float> maxEvaluation = new MinimaxOutput<GameSpace, AgentType, MoveType, float>(false, float.MinValue, float.MaxValue, Game);
+            MinimaxInput<GameSpace, AgentType, MoveType, float> input = new MinimaxInput<GameSpace, AgentType, MoveType, float>(Game);
 
+            MinimaxOutput<GameSpace, AgentType, MoveType, float> minimaxResult = Minimax(input, minEvaluation, maxEvaluation, new List<MoveType>(), new AgentType(), depth, depth, isMaximizingPlayer, float.MinValue, float.MaxValue);
 
-        private MinimaxOutput<GameSpace, AgentType, float> Minimax(MinimaxInput<GameSpace, AgentType, float> input, 
-                                                                      MinimaxOutput<GameSpace, AgentType, float> minEvaluation, 
-                                                                      MinimaxOutput<GameSpace, AgentType, float> maxEvaluation, 
-                                                                      IList<AgentType> originatingMoves, AgentType originatingPiece, 
-                                                                      int depth, int originalDepth, bool isMaximizingPlayer, float alpha, float beta)
+            while(minimaxResult.Moves.Count == 0 && depth > 2)
+            {
+                depth -= 2;
+                minEvaluation = new MinimaxOutput<GameSpace, AgentType, MoveType, float>(true, float.MinValue, float.MaxValue, Game);
+                maxEvaluation = new MinimaxOutput<GameSpace, AgentType, MoveType, float>(false, float.MinValue, float.MaxValue, Game);
+                minimaxResult = Minimax(input, minEvaluation, maxEvaluation, new List<MoveType>(), new AgentType(), depth, depth, isMaximizingPlayer, float.MinValue, float.MaxValue);
+            }
+
+            return minimaxResult;
+        }
+
+        private MinimaxOutput<GameSpace, AgentType, MoveType, float> Minimax(MinimaxInput<GameSpace, AgentType, MoveType, float> input, 
+                                                                   MinimaxOutput<GameSpace, AgentType, MoveType, float> minEvaluation, 
+                                                                   MinimaxOutput<GameSpace, AgentType, MoveType, float> maxEvaluation, 
+                                                                   IList<MoveType> originatingMoves, AgentType originatingPiece, 
+                                                                   int depth, int originalDepth, bool isMaximizingPlayer, float alpha, float beta)
         {
             if (input == null || input.Space == null)
-                return new MinimaxOutput<GameSpace, AgentType, float>();
+                return new MinimaxOutput<GameSpace, AgentType, MoveType, float>();
 
             int blackCount = GetAgentCount(input.Space, true);
             int whiteCount = GetAgentCount(input.Space, false);
             if (depth == 0 || blackCount == 0 || whiteCount == 0)
-                return new MinimaxOutput<GameSpace, AgentType, float>(GetGameEvaluation(input.Space), input.Space, originatingMoves, originatingPiece);
+                return new MinimaxOutput<GameSpace, AgentType, MoveType, float>(GetGameEvaluation(input.Space), input.Space, originatingMoves, originatingPiece);
 
-            IList<MinimaxInput<GameSpace, AgentType, float>> branches = GetPositions(input.Space, isMaximizingPlayer);
+            IList<MinimaxInput<GameSpace, AgentType, MoveType, float>> branches = GetPositions(input.Space, isMaximizingPlayer);
 
             if (isMaximizingPlayer)
             {
@@ -36,7 +54,7 @@ namespace TakeTurns
                     originatingMoves = depth == originalDepth ? branch.Moves : originatingMoves;
                     originatingPiece = depth == originalDepth ? branch.Agent : originatingPiece;
 
-                    MinimaxOutput<GameSpace, AgentType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, false, alpha, beta);
+                    MinimaxOutput<GameSpace, AgentType, MoveType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, false, alpha, beta);
                     maxEvaluation = result.MinimaxEvaluation > maxEvaluation.MinimaxEvaluation || (result.MinimaxEvaluation == maxEvaluation.MinimaxEvaluation && new Random().Next(1, 10) <= 5) ? result : maxEvaluation;
 
                     alpha = Math.Max(alpha, maxEvaluation.MinimaxEvaluation);
@@ -52,7 +70,7 @@ namespace TakeTurns
                     originatingMoves = depth == originalDepth ? branch.Moves : originatingMoves;
                     originatingPiece = depth == originalDepth ? branch.Agent : originatingPiece;
 
-                    MinimaxOutput<GameSpace, AgentType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, true, alpha, beta);
+                    MinimaxOutput<GameSpace, AgentType, MoveType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, true, alpha, beta);
                     minEvaluation = result.MinimaxEvaluation < minEvaluation.MinimaxEvaluation || (result.MinimaxEvaluation == minEvaluation.MinimaxEvaluation && new Random().Next(1, 10) <= 5) ? result : minEvaluation;
 
                     beta = Math.Min(beta, minEvaluation.MinimaxEvaluation);

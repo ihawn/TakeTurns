@@ -49,11 +49,4 @@ namespace TakeTurns.Containers
             Agent = agent;
         }
     }
-
-    public class BranchResult<GameSpace, AgentType, EvalType> : GameState<GameSpace, AgentType, EvalType>
-    {
-        public IList<MinimaxInput<GameSpace, AgentType, EvalType>> Branches { get; set; }
-
-        public BranchResult(List<MinimaxInput<GameSpace, AgentType, EvalType>> branches) { Branches = branches; }
-    }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TakeTurns.Interfaces
 {
-    public interface IGameEvaluation<GameSpace, AgentType, EvalType>
+    public interface IGameEvaluation<GameSpace, AgentType, EvalType, InputType>
     {
         EvalType GetGameEvaluation(GameSpace space);
-        IList<AgentType> GetPositions(GameSpace space);
+        IList<InputType> GetPositions(GameSpace space, bool isMaxPlayer);
+        int GetAgentCount(GameSpace space, bool isMaxPlayer);
     }
 }
