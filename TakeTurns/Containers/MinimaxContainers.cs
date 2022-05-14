@@ -15,10 +15,7 @@ namespace TakeTurns.Containers
             Agent = agent;
         }
 
-        public MinimaxInput(object space)
-        {
-            Space = space;
-        }
+        public MinimaxInput(object space) { Space = space; }
     }
 
     public class MinimaxOutput : GameState<object, object>
@@ -45,8 +42,15 @@ namespace TakeTurns.Containers
         {
             MinimaxEvaluation = evaluation;
             Space = space;
-            Moves = Moves;
+            Moves = moves;
             Agent = agent;
         }
+    }
+
+    public class BranchResult : GameState<object, object>
+    {
+        public IList<MinimaxInput> Branches { get; set; }
+
+        public BranchResult(List<MinimaxInput> branches) { Branches = branches; }
     }
 }
