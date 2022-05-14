@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "5ea0d976-b047-45e9-b411-ddd8e05771e1": {
+      "ProjectGuid": "5ea0d976-b047-45e9-b411-ddd8e05771e1",
+      "DisplayName": "TakeTurns",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

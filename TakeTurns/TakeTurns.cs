@@ -38,7 +38,7 @@ namespace TakeTurns
                                                                    int depth, int originalDepth, bool isMaximizingPlayer, float alpha, float beta)
         {
             if (input == null || input.Space == null)
-                return new MinimaxOutput<GameSpace, AgentType, MoveType, float>();
+                return new MinimaxOutput<GameSpace, AgentType, MoveType, float>(0);
 
             int blackCount = GetAgentCount(input.Space, true);
             int whiteCount = GetAgentCount(input.Space, false);
@@ -55,7 +55,7 @@ namespace TakeTurns
                     originatingPiece = depth == originalDepth ? branch.Agent : originatingPiece;
 
                     MinimaxOutput<GameSpace, AgentType, MoveType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, false, alpha, beta);
-                    maxEvaluation = result.MinimaxEvaluation > maxEvaluation.MinimaxEvaluation || (result.MinimaxEvaluation == maxEvaluation.MinimaxEvaluation && new Random().Next(1, 10) <= 5) ? result : maxEvaluation;
+                    maxEvaluation = result.MinimaxEvaluation > maxEvaluation.MinimaxEvaluation ? result : maxEvaluation;
 
                     alpha = Math.Max(alpha, maxEvaluation.MinimaxEvaluation);
                     if (beta <= alpha)
@@ -71,7 +71,7 @@ namespace TakeTurns
                     originatingPiece = depth == originalDepth ? branch.Agent : originatingPiece;
 
                     MinimaxOutput<GameSpace, AgentType, MoveType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, true, alpha, beta);
-                    minEvaluation = result.MinimaxEvaluation < minEvaluation.MinimaxEvaluation || (result.MinimaxEvaluation == minEvaluation.MinimaxEvaluation && new Random().Next(1, 10) <= 5) ? result : minEvaluation;
+                    minEvaluation = result.MinimaxEvaluation < minEvaluation.MinimaxEvaluation ? result : minEvaluation;
 
                     beta = Math.Min(beta, minEvaluation.MinimaxEvaluation);
                     if (beta <= alpha)

@@ -19,26 +19,23 @@ namespace TakeTurns.Containers
         public MinimaxInput(GameSpace space) { Space = space; }
     }
 
-    public class MinimaxOutput<GameSpace, AgentType, MoveType, EvalType> : GameState<GameSpace, AgentType, MoveType, EvalType>
+    public class MinimaxOutput<GameSpace, AgentType, MoveType, EvalType> : GameState<GameSpace, AgentType, MoveType, EvalType> where AgentType : new()
     {
         public EvalType MinimaxEvaluation { get; set; }
-
-        public MinimaxOutput() { }
 
         public MinimaxOutput(EvalType zero)
         {
             MinimaxEvaluation = zero;
-            Space = default(GameSpace);
             Moves = new List<MoveType>();
-            Agent = default(AgentType);
+            Agent = new AgentType();
         }
 
         public MinimaxOutput(bool isMin, EvalType minValue, EvalType maxValue, GameSpace space)
         {
-            MinimaxEvaluation = isMin ? minValue : maxValue;
+            MinimaxEvaluation = isMin ? maxValue : minValue;
             Space = space;
             Moves = new List<MoveType>();
-            Agent = default(AgentType);
+            Agent = new AgentType();
         }
 
         public MinimaxOutput(EvalType evaluation, GameSpace space, IList<MoveType> moves, AgentType agent)
