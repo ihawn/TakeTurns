@@ -10,6 +10,6 @@ namespace TakeTurns.Interfaces
     {
         EvalType GetGameEvaluation(GameSpace space);
         IList<InputType> GetPositions(GameSpace space, bool isMaxPlayer);
-        int GetAgentCount(GameSpace space, bool isMaxPlayer);
+        bool EndGameReached(GameSpace space);
     }
 }
