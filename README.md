@@ -20,6 +20,7 @@ Download ```TakeTurns.dll``` from [the release page](https://github.com/ihawn/Ta
 
 ## Usage
 See the <a href="https://github.com/ihawn/Checkers">example project</a> and more specifically <a href="https://github.com/ihawn/Checkers/blob/main/Checkers/Assets/Scripts/Algorithms/Moves.cs">this file</a> for a specific implementation example of this package.
+
 This package requires the following user-supplied classes which will be specific to your game.
 Note that your class names need not match.
 ```sh
