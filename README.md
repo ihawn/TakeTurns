@@ -54,7 +54,7 @@ public class OverloadContainer : TakeTurns<GameSpace, Agent, Move>
 }
 ```
 
-Place the following 3 overloads in OverloadContainer:
+Place the following 3 overrides in OverloadContainer:
 ```
 public override float GetGameEvaluation(GameSpace space)
 {
