@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>TakeTurns</id>
+    <version>1.0.0</version>
+    <title>TakeTurns</title>
+    <authors>Isaac Hawn</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <icon>Resources\game_icon.png</icon>
+    <projectUrl>https://github.com/ihawn/TakeTurns</projectUrl>
+    <description>A 2-player, turn-based AI engine </description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2022</copyright>
+    <tags>AI Games TurnBased AlphaBetaPruning</tags>
+  </metadata>
+  <files>
+    <file src="Resources\game_icon.png" target="Resources\" />
+  </files>
+</package>
