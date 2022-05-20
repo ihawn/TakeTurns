@@ -91,7 +91,7 @@ The ```isMaximizingPlayer``` bool simply represents whose turn it is. It doesn't
 
 ```GetBestMove()``` returns a ```MinimaxOutput``` object which contains the following parameters:
 - *Piece:*   The piece that should move
-- *Move:*  The Move that Piece should make
+- *Move:*  The list of Moves that the piece should make (Could be more than one depending on how the game is structured. For example, a double jump in checkers can be thought of as two moves). If just one move is possible per player, per move, this will be a one element list.
 - *GameSpace:*  The space of your game after Piece performs Move
 
 Now you have all the information you need to move your computer player's piece!
