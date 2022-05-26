@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Containers\GameState.cs" />
     <Compile Include="Containers\MinimaxContainers.cs" />
+    <Compile Include="Enumerations\EndState.cs" />
     <Compile Include="Interfaces\IGameEvaluation.cs" />
     <Compile Include="TakeTurns.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

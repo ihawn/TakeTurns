@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TakeTurns.Containers;
 using TakeTurns.Interfaces;
+using TakeTurns.Enumerations;
 
 namespace TakeTurns
 {
@@ -9,7 +10,7 @@ namespace TakeTurns
     {
         public abstract float GetGameEvaluation(GameSpace space);
         public abstract IList<MinimaxInput<GameSpace, AgentType, MoveType, float>> GetPositions(GameSpace space, bool isMaxPlayer);
-        public abstract bool EndGameReached(GameSpace space);
+        public abstract (bool, EndState) EndGameReached(GameSpace space);
 
         public MinimaxOutput<GameSpace, AgentType, MoveType, float> GetBestMove(GameSpace Game, int depth, bool isMaximizingPlayer)
         {
@@ -40,7 +41,7 @@ namespace TakeTurns
             if (input == null || input.Space == null)
                 return new MinimaxOutput<GameSpace, AgentType, MoveType, float>(0);
 
-            if (depth == 0 || EndGameReached(input.Space))
+            if (depth == 0 || EndGameReached(input.Space).Item1)
                 return new MinimaxOutput<GameSpace, AgentType, MoveType, float>(GetGameEvaluation(input.Space), input.Space, originatingMoves, originatingPiece);
 
             IList<MinimaxInput<GameSpace, AgentType, MoveType, float>> branches = GetPositions(input.Space, isMaximizingPlayer);

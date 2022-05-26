@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TakeTurns.Enumerations;
 
 namespace TakeTurns.Interfaces
 {
@@ -10,6 +11,6 @@ namespace TakeTurns.Interfaces
     {
         EvalType GetGameEvaluation(GameSpace space);
         IList<InputType> GetPositions(GameSpace space, bool isMaxPlayer);
-        bool EndGameReached(GameSpace space);
+        (bool, EndState) EndGameReached(GameSpace space); //(end reached, did maximizing player win)
     }
 }
