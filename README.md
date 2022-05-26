@@ -21,8 +21,7 @@ Download ```TakeTurns.dll``` from [the release page](https://github.com/ihawn/Ta
 ## Usage
 See the <a href="https://github.com/ihawn/Checkers">example project</a> and more specifically <a href="https://github.com/ihawn/Checkers/blob/main/Checkers/Assets/Scripts/Algorithms/Moves.cs">this file</a> for a specific implementation example of this package.
 
-This package requires the following user-supplied classes which will be specific to your game.
-Note that your class names need not match.
+This package requires 3 user-defined classes which will be specific to your game and are outlined as follows:
 ```sh
 public class GameSpace
 {
@@ -54,7 +53,7 @@ public class OverloadContainer : TakeTurns<GameSpace, Agent, Move>
 }
 ```
 
-Place the following 3 overloads in OverloadContainer:
+Place the following 3 overrides in OverloadContainer:
 ```
 public override float GetGameEvaluation(GameSpace space)
 {
@@ -92,7 +91,7 @@ The ```isMaximizingPlayer``` bool simply represents whose turn it is. It doesn't
 
 ```GetBestMove()``` returns a ```MinimaxOutput``` object which contains the following parameters:
 - *Piece:*   The piece that should move
-- *Move:*  The Move that Piece should make
+- *Move:*  The list of Moves that the piece should make (Could be more than one depending on how the game is structured. For example, a double jump in checkers can be thought of as two moves). If just one move is possible per player, per move, this will be a one element list.
 - *GameSpace:*  The space of your game after Piece performs Move
 
 Now you have all the information you need to move your computer player's piece!
