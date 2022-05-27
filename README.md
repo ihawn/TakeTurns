@@ -20,7 +20,7 @@ Download ```TakeTurns.dll``` from [the release page](https://github.com/ihawn/Ta
 
 
 ## Usage
-See the <a href="https://github.com/ihawn/Checkers">example project</a> and more specifically <a href="https://github.com/ihawn/Checkers/blob/main/Checkers/Assets/Scripts/Algorithms/Moves.cs">this file</a> for a specific implementation example of this package.
+See the <a href="https://github.com/ihawn/TicTacToe/tree/main/TicTacToe">example project</a> and more specifically <a href="https://github.com/ihawn/TicTacToe/blob/main/TicTacToe/Assets/Scripts/TakeTurnsOverloads.cs">this file</a> for a specific implementation example of this package.
 
 This package requires 3 user-defined classes which will be specific to your game and are outlined as follows:
 ```sh
@@ -59,18 +59,27 @@ Place the following 3 overrides in OverloadContainer:
 public override float GetGameEvaluation(GameSpace space)
 {
     // This method is very important and will be quite specific to your game
+    
     // It should calculate a float which defines the "state" of your game
     // Player 1 will want to minimize this value while Player 2 will want to maximize it
     // Returning 0 would mean the game is currently tied
+    
     // In the chess example, a simple evaluation calculation would be BlackPieceCount - WhitePieceCount
     // Obviously, black would want to maximize this value and white would want to minimize it
     // See https://en.wikipedia.org/wiki/Minimax for more info
+    
+    // It is recommended to place an infinite penalty on the other player winning (using EndGameReached below)
+    // to ensure that neither player allows themselves to lose willingly
 }
 
-public override bool EndGameReached(GameSpace space)
+public override (bool, EndState) EndGameReached(GameSpace space)
 {
+    // First return parameter:
     // Returns true if space contains a finished game (there is a winner or a draw)
     // Note that this is not measuring the current game space but rather that passed game space
+    
+    // Second return parameter:
+    // Returns an EndState enum which can either be MaxPlayerWins, MinPlayerWins, Tie
 }
 
 public override IList<MinimaxInput<GameSpace, Agent, Move, float>> GetPositions(Gamespace space, bool isMaxPlayer)
