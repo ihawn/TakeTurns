@@ -2,7 +2,7 @@
 [![version](https://img.shields.io/badge/version-1.0.2-yellow.svg)](https://semver.org)
 ## A 2-Player, Turn-Base AI Engine
 
-Take Turns is a fast, flexible, 2-player AI engine based off the classic minimax algorithm with alpha-beta pruning
+Take Turns is a fast, flexible, 2-player AI engine based on the classic minimax algorithm with alpha-beta pruning
 
 - Compatible with Unity
 - Fully customizable and suitable for any turn-based, 2-player game
