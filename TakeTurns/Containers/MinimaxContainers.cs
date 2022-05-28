@@ -34,7 +34,7 @@ namespace TakeTurns.Containers
         {
             MinimaxEvaluation = isMin ? maxValue : minValue;
             Space = space;
-            Moves = new List<MoveType>();
+            Moves = new List<MoveType>(); //change this to just a MoveType. If the user wants, their MoveType can be a list...
             Agent = new AgentType();
         }
 
