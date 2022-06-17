@@ -88,7 +88,7 @@ public override IList<MinimaxInput<GameSpace, Agent, Move, float>> GetPositions(
     // MinimaxInput contains the following fields
     //    - GameSpace -> the gamespace generated from space
     //    - Agent     -> the agent which generated GameSpace
-    //    - Move      -> the move which Agent took to generate GameSpace
+    //    - Move      -> the move which Agent took to generate GameSpace (IMPORTANT: If a move is not possible from the current GameSpace, this needs to be null)
 }
 ```
 **IMPORTANT:** Inside ```GetPosition()```, when computing a branch of space, you must deep-copy space before assigning it to the ```GameSpace``` property of the current ```MinimaxInput``` object. If you do not, you will modify the passed parameter space which will result in nonsense output. This is why your ```GameSpace``` class should contain the bare minimum amount of information needed. Preferrably, it should contain only primitives so that you may define the deep-copy in a constructor overload of ```GameSpace```.
@@ -101,7 +101,7 @@ The ```isMaximizingPlayer``` bool simply represents whose turn it is. It doesn't
 
 ```GetBestMove()``` returns a ```MinimaxOutput``` object which contains the following parameters:
 - *Piece:*   The piece that should move
-- *Move:*  The list of Moves that the piece should make (Could be more than one depending on how the game is structured. For example, a double jump in checkers can be thought of as two moves). If just one move is possible per player, per move, this will be a one element list.
+- *Move:*  The move that the piece should make
 - *GameSpace:*  The space of your game after Piece performs Move
 
 Now you have all the information you need to move your computer player's piece!
