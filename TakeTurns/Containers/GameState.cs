@@ -10,7 +10,7 @@ namespace TakeTurns.Containers
     public abstract class GameState<GameSpace, AgentType, MoveType, EvalType>
     {
         public virtual GameSpace Space { get; set; }
-        public virtual IList<MoveType> Moves { get; set; }
+        public virtual MoveType Move { get; set; }
         public virtual AgentType Agent { get; set; }
     }
 }

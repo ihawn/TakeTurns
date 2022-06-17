@@ -6,7 +6,7 @@ using TakeTurns.Enumerations;
 
 namespace TakeTurns
 {
-    public abstract class TakeTurns<GameSpace, AgentType, MoveType> : IGameEvaluation<GameSpace, AgentType, float, MinimaxInput<GameSpace, AgentType, MoveType, float>> where AgentType : new()
+    public abstract class TakeTurns<GameSpace, AgentType, MoveType> : IGameEvaluation<GameSpace, AgentType, float, MinimaxInput<GameSpace, AgentType, MoveType, float>> where AgentType : new() where MoveType : new()
     {
         public abstract float GetGameEvaluation(GameSpace space);
         public abstract IList<MinimaxInput<GameSpace, AgentType, MoveType, float>> GetPositions(GameSpace space, bool isMaxPlayer);
@@ -19,14 +19,14 @@ namespace TakeTurns
             MinimaxOutput<GameSpace, AgentType, MoveType, float> maxEvaluation = new MinimaxOutput<GameSpace, AgentType, MoveType, float>(false, float.MinValue, float.MaxValue, Game);
             MinimaxInput<GameSpace, AgentType, MoveType, float> input = new MinimaxInput<GameSpace, AgentType, MoveType, float>(Game);
 
-            MinimaxOutput<GameSpace, AgentType, MoveType, float> minimaxResult = Minimax(input, minEvaluation, maxEvaluation, new List<MoveType>(), new AgentType(), depth, depth, isMaximizingPlayer, float.MinValue, float.MaxValue);
+            MinimaxOutput<GameSpace, AgentType, MoveType, float> minimaxResult = Minimax(input, minEvaluation, maxEvaluation, new MoveType(), new AgentType(), depth, depth, isMaximizingPlayer, float.MinValue, float.MaxValue);
 
-            while(minimaxResult.Moves.Count == 0 && depth > 2)
+            while(minimaxResult.Move == null && depth > 2)
             {
                 depth -= 2;
                 minEvaluation = new MinimaxOutput<GameSpace, AgentType, MoveType, float>(true, float.MinValue, float.MaxValue, Game);
                 maxEvaluation = new MinimaxOutput<GameSpace, AgentType, MoveType, float>(false, float.MinValue, float.MaxValue, Game);
-                minimaxResult = Minimax(input, minEvaluation, maxEvaluation, new List<MoveType>(), new AgentType(), depth, depth, isMaximizingPlayer, float.MinValue, float.MaxValue);
+                minimaxResult = Minimax(input, minEvaluation, maxEvaluation, new MoveType(), new AgentType(), depth, depth, isMaximizingPlayer, float.MinValue, float.MaxValue);
             }
 
             return minimaxResult;
@@ -35,14 +35,14 @@ namespace TakeTurns
         private MinimaxOutput<GameSpace, AgentType, MoveType, float> Minimax(MinimaxInput<GameSpace, AgentType, MoveType, float> input, 
                                                                    MinimaxOutput<GameSpace, AgentType, MoveType, float> minEvaluation, 
                                                                    MinimaxOutput<GameSpace, AgentType, MoveType, float> maxEvaluation, 
-                                                                   IList<MoveType> originatingMoves, AgentType originatingPiece, 
+                                                                   MoveType originatingMoves, AgentType originatingPiece, 
                                                                    int depth, int originalDepth, bool isMaximizingPlayer, float alpha, float beta)
         {
             if (input == null || input.Space == null)
                 return new MinimaxOutput<GameSpace, AgentType, MoveType, float>(0);
 
             if (depth == 0 || EndGameReached(input.Space).Item1)
-                return new MinimaxOutput<GameSpace, AgentType, MoveType, float>(GetGameEvaluation(input.Space), input.Space, originatingMoves, originatingPiece);
+                return new MinimaxOutput<GameSpace, AgentType, MoveType, float>(GetGameEvaluation(input.Space), input.Space, originatingPiece, originatingMoves);
 
             IList<MinimaxInput<GameSpace, AgentType, MoveType, float>> branches = GetPositions(input.Space, isMaximizingPlayer);
 
@@ -50,7 +50,7 @@ namespace TakeTurns
             {
                 foreach (var branch in branches)
                 {
-                    originatingMoves = depth == originalDepth ? branch.Moves : originatingMoves;
+                    originatingMoves = depth == originalDepth ? branch.Move : originatingMoves;
                     originatingPiece = depth == originalDepth ? branch.Agent : originatingPiece;
 
                     MinimaxOutput<GameSpace, AgentType, MoveType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, false, alpha, beta);
@@ -66,7 +66,7 @@ namespace TakeTurns
             {
                 foreach (var branch in branches)
                 {
-                    originatingMoves = depth == originalDepth ? branch.Moves : originatingMoves;
+                    originatingMoves = depth == originalDepth ? branch.Move : originatingMoves;
                     originatingPiece = depth == originalDepth ? branch.Agent : originatingPiece;
 
                     MinimaxOutput<GameSpace, AgentType, MoveType, float> result = Minimax(branch, minEvaluation, maxEvaluation, originatingMoves, originatingPiece, depth - 1, originalDepth, true, alpha, beta);
