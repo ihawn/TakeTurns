@@ -89,7 +89,7 @@ public override IList<MinimaxInput<GameSpace, Agent, Move, float>> GetPositions(
     // MinimaxInput contains the following fields
     //    - GameSpace -> the gamespace generated from space
     //    - Agent     -> the agent which generated GameSpace
-    //    - Move      -> the move which Agent took to generate GameSpace (IMPORTANT: If a move is not possible from the current GameSpace, this needs to be null)
+    //    - Move      -> the move which Agent took to generate GameSpace (IMPORTANT: If a move is not possible from the space, this needs to be null)
 }
 ```
 **IMPORTANT:** Inside ```GetPosition()```, when computing a branch of space, you must deep-copy space before assigning it to the ```GameSpace``` property of the current ```MinimaxInput``` object. If you do not, you will modify the passed parameter space which will result in nonsense output. This is why your ```GameSpace``` class should contain the bare minimum amount of information needed. Preferrably, it should contain only primitives so that you may define the deep-copy in a constructor overload of ```GameSpace```.
