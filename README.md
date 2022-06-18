@@ -1,5 +1,5 @@
 # Take Turns
-[![version](https://img.shields.io/badge/version-1.0.2-yellow.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.0.3-yellow.svg)](https://semver.org)
 ## A 2-Player, Turn-Base AI Engine
 
 Take Turns is a fast, flexible, 2-player AI engine based on the classic minimax algorithm with alpha-beta pruning
@@ -13,9 +13,9 @@ Take Turns is a fast, flexible, 2-player AI engine based on the classic minimax 
 
 ## Installation
 ##### General Installation
-This package is available in [NuGet here](https://www.nuget.org/packages/TakeTurns/1.0.2) or by running ```Install-Package TakeTurns -Version 1.0.1``` in the Package manager console.
+This package is available in [NuGet here](https://www.nuget.org/packages/TakeTurns/1.0.3) or by running ```Install-Package TakeTurns -Version 1.0.1``` in the Package manager console.
 ##### Unity Installation
-Download ```TakeTurns.dll``` from [the release page](https://github.com/ihawn/TakeTurns/releases/tag/1.0.1) and place anywhere inside your Assets directory.
+Download ```TakeTurns.dll``` from [the release page](https://github.com/ihawn/TakeTurns/releases/tag/1.0.3) and place anywhere inside your Assets directory.
 
 
 
