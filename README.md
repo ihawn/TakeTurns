@@ -8,6 +8,7 @@ Take Turns is a fast, flexible, 2-player AI engine based on the classic minimax 
 - Fully customizable and suitable for any turn-based, 2-player game
 - Simple, yet effective approach to turn-based AI
 - [Example project here](https://github.com/ihawn/TicTacToe/tree/main/TicTacToe)
+- [More complicated example project](https://github.com/ihawn/Checkers)
 
 ![checkers](https://github.com/ihawn/TakeTurns/blob/main/TakeTurns/Resources/checkers.gif)
 
