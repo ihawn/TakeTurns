@@ -14,7 +14,7 @@ Take Turns is a fast, flexible, 2-player AI engine based on the classic minimax 
 
 ## Installation
 ##### General Installation
-This package is available in [NuGet here](https://www.nuget.org/packages/TakeTurns/1.0.3) or by running ```Install-Package TakeTurns -Version 1.0.1``` in the Package manager console.
+This package is available in [NuGet here](https://www.nuget.org/packages/TakeTurns/1.0.3) or by running ```Install-Package TakeTurns -Version 1.0.3``` in the Package manager console.
 ##### Unity Installation
 Download ```TakeTurns.dll``` from [the release page](https://github.com/ihawn/TakeTurns/releases/tag/1.0.3) and place anywhere inside your Assets directory.
 
